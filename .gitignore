@@ -1,0 +1,27 @@
+# Segredos e ambiente
+.env
+.env.*
+!.env.example
+
+# Java / Maven
+api/target/
+*.class
+
+# Node / Next.js
+web/node_modules/
+web/.next/
+web/out/
+
+# Python
+fabrica/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDEs e sistema
+.idea/
+.vscode/
+*.iml
+.DS_Store
