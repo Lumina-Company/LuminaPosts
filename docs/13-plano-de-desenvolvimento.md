@@ -8,7 +8,9 @@ Entregar o SaaS multi-imobiliária descrito em [00 — Visão geral](00-visao-ge
 
 Na revisão inicial, o repositório contém documentação e instruções; as pastas de aplicação descritas ainda precisam ser criadas. Listagens de comandos e exemplos nos documentos são especificações, não funcionalidades já entregues.
 
-**Confirmado pelo responsável em 21/10/2026:** implantação no **EasyPanel** e banco **PostgreSQL**. Adotar PostgreSQL 16 como versão de referência, conforme a ADR-13. SQLite não fará parte da aplicação nova. Se houver SQLite no pipeline anterior, será apenas uma fonte da migração de dados.
+**Infraestrutura definida:** implantação no **EasyPanel** e banco **PostgreSQL**, adotando a versão 16 como referência, conforme a ADR-13.
+
+**Integração Java ↔ Python:** o PostgreSQL centraliza o contrato de dados e a coordenação dos processos. O Java registra as decisões do painel; o Python consome as tarefas e persiste os resultados. Estados, filas e histórico ficam na mesma base transacional, com sinais para despertar os workers e consultas periódicas para recuperação. Essa organização mantém painel e fábrica independentes na execução e reduz os componentes necessários à operação, conforme as ADRs 02 e 03.
 
 ### Decisões que orientam a execução
 
@@ -552,7 +554,7 @@ A F03 começa cedo e continua acompanhando permissões externas. A F23 pode ser 
 **Blocos de execução:**
 
 - [ ] **F30.01** — Implementar importador versionado com modo de simulação, mapeamento de IDs, estados, tenants, mídia e histórico.
-- [ ] **F30.02** — Se houver SQLite, extrair de cópia controlada; não manter escrita paralela sem estratégia explícita.
+- [ ] **F30.02** — Extrair os dados existentes de uma cópia controlada e validar o mapeamento para o PostgreSQL; definir uma única origem de escrita durante o corte.
 - [ ] **F30.03** — Ensaiar com dados anonimizados e conciliar contagens, relações, links de mídia e franquia.
 - [ ] **F30.04** — Definir fonte responsável por publicações já iniciadas, janela de pausa e prevenção de duplicação durante o corte.
 - [ ] **F30.05** — Registrar plano de retorno: após novas escritas/publicações, voltar ao pipeline anterior exige reconciliação, não apenas restaurar banco antigo.
