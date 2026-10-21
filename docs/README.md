@@ -51,3 +51,7 @@ Todos os diagramas estão em [Mermaid](https://mermaid.js.org/) dentro dos próp
 
 - A documentação acompanha o código: um PR que muda arquitetura, contrato ou comportamento atualiza o documento correspondente.
 - Decisões estruturais novas entram em [decisoes.md](decisoes.md) como nova ADR.
+
+## Plano de desenvolvimento
+
+Consulte [13 — Plano de desenvolvimento](13-plano-de-desenvolvimento.md) para as fases, blocos, dependências e critérios de conclusão.
